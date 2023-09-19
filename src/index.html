@@ -10,6 +10,37 @@
 	<body>
 		<main>
 			<h1>The App</h1>
-		</main>
-	</body>
+      <p>Loading content from the API: <b id="name">...</b></p>
+
+
+    <form action="/submit" method="post">
+        <label for="firstname">Firstname:</label>
+        <input type="text" id="firstname" name="firstname" required>
+        <br><br>
+
+        <label for="lastname">Lastname:</label>
+        <input type="text" id="lastname" name="lastname" required>
+        <br><br>
+
+        <label for="photo">Photo:</label>
+        <input type="file" id="photo" name="photo" accept="image/*">
+        <br><br>
+
+        <label for="license">License Plate (Kenteken):</label>
+        <input type="text" id="license" name="license" required>
+
+        <input type="submit" value="Submit">
+        
+    </form>
+
+
+    <script>
+    (async function() {
+        const { text } = await( await fetch(`/api/message`)).json();
+        console.log("text" + text);
+        document.querySelector('#name').textContent = text;
+    }());
+    </script>
+</body>
 </html>
+
