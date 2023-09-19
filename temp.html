@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulier met API-aanroep</title>
+</head>
+<body>
+    <h1>Formulier met API-aanroep</h1>
+    <form id="mijnFormulier">
+        <label for="voornaam">Voornaam:</label>
+        <input type="text" id="voornaam" name="voornaam" required><br>
+
+        <label for="achternaam">Achternaam:</label>
+        <input type="text" id="achternaam" name="achternaam" required><br>
+
+        <label for="foto">Foto uploaden:</label>
+        <input type="file" id="foto" name="foto" accept="image/*"><br>
+
+        <label for="kenteken">Kenteken:</label>
+        <input type="text" id="kenteken" name="kenteken" required><br>
+
+        <button type="button" id="verzendKnop">Verzenden</button>
+    </form>
+
+    <script>
+        const mijnFormulier = document.getElementById('mijnFormulier');
+        const verzendKnop = document.getElementById('verzendKnop');
+
+        verzendKnop.addEventListener('click', () => {
+            const voornaam = document.getElementById('voornaam').value;
+            const achternaam = document.getElementById('achternaam').value;
+            const kenteken = document.getElementById('kenteken').value;
+            const foto = document.getElementById('foto').files[0]; // Uploadfoto ophalen
+
+            // Hier kun je je API-endpoint vervangen
+            const apiEndpoint = 'https://voorbeeldapi.com/upload';
+
+            const formData = new FormData();
+            formData.append('voornaam', voornaam);
+            formData.append('achternaam', achternaam);
+            formData.append('kenteken', kenteken);
+            formData.append('foto', foto);
+
+            fetch(apiEndpoint, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Verwerk de API-respons hier, bijvoorbeeld toon een succesbericht
+                alert('Succesvol geüpload! API-reactie: ' + JSON.stringify(data));
+            })
+            .catch(error => {
+                console.error('Fout bij API-aanroep:', error);
+            });
+        });
+    </script>
+</body>
+</html>

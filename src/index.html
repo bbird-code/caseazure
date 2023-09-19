@@ -13,7 +13,7 @@
       <p>Loading content from the API: <b id="name">...</b></p>
 
 
-    <form action="/submit" method="post">
+    <form id="form">
         <label for="firstname">Firstname:</label>
         <input type="text" id="firstname" name="firstname" required>
         <br><br>
@@ -29,8 +29,7 @@
         <label for="license">License Plate (Kenteken):</label>
         <input type="text" id="license" name="license" required>
 
-        <input type="submit" value="Submit">
-        
+        <button id="submit" type="button"> Submit</button> 
     </form>
 
 
@@ -38,9 +37,14 @@
     (async function() {
         const { text } = await( await fetch(`/api/message`)).json();
         console.log("text" + text);
-        document.querySelector('#name').textContent = text;
+        const test = document.querySelector('#name').textContent = {
+          firstname: firstname,
+        };
+        console.log("test" + JSON.stringify(test));
+
     }());
     </script>
+    <script src="js/api.js"></script>
 </body>
 </html>
 
